@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6757d9">
+  <meta name="description" content="StudySpot AI helps students plan exam preparation and find a place to study on campus.">
+  <title>StudySpot AI — Know what to study. Know where to study.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="StudySpot AI home"><span class="brand-mark">✦</span><span>StudySpot <b>AI</b></span></a>
+    <div class="top-actions"><span id="student-label" class="student-label">Local demo</span><button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">◐</button></div>
+  </header>
+  <main class="shell">
+    <section class="hero">
+      <div><p class="eyebrow">YOUR PERSONAL STUDY COMPANION</p><h1>Make every study<br><span>session count.</span></h1><p class="hero-copy">Know what to study. Know where to study.</p></div>
+      <div class="hero-stat"><span class="stat-icon">✦</span><div><strong id="hero-streak">0 days</strong><small>study streak</small></div></div>
+    </section>
+    <nav class="tabs" aria-label="Main navigation">
+      <button class="tab active" data-view="overview">Overview</button><button class="tab" data-view="planner">Exam planner</button><button class="tab" data-view="practice">Practice</button><button class="tab" data-view="spaces">Study spaces</button><button class="tab" data-view="progress">Progress</button>
+    </nav>
+    <section id="overview" class="view active">
+      <div class="section-heading"><div><p class="eyebrow">YOUR DASHBOARD</p><h2>Good to see you</h2><p class="muted">A little progress each day adds up.</p></div><button class="primary" data-goto="planner">＋ Add an exam</button></div>
+      <div class="stats-grid">
+        <article class="stat-card"><span class="card-symbol purple">◷</span><div><small>Study time</small><strong id="stat-minutes">0 min</strong><p class="muted">Tracked on this device</p></div></article>
+        <article class="stat-card"><span class="card-symbol green">✓</span><div><small>Topics mastered</small><strong id="stat-mastered">0</strong><p class="muted">Across all subjects</p></div></article>
+        <article class="stat-card"><span class="card-symbol orange">▦</span><div><small>Upcoming exams</small><strong id="stat-exams">0</strong><p class="muted">In your study plan</p></div></article>
+      </div>
+      <div class="content-grid">
+        <article class="panel"><div class="panel-head"><div><h3>Next exam</h3><p class="muted">Stay one step ahead</p></div><span class="pill">COUNTDOWN</span></div><div id="next-exam" class="empty-state">No exams yet. Add one in your planner to get started.</div></article>
+        <article class="panel"><div class="panel-head"><div><h3>Priority topics</h3><p class="muted">Suggested focus areas</p></div><span class="sparkle">✦</span></div><div id="priority-list" class="stack"><p class="muted">Add topics to see your priorities.</p></div></article>
+      </div>
+      <article class="panel"><div class="panel-head"><div><h3>Build a study habit</h3><p class="muted">Log a session to track your progress</p></div></div><div class="session-row"><div><strong>Focused study session</strong><p class="muted">Try 25 minutes of focus followed by a short break.</p></div><button id="log-session" class="primary">＋ Log 25 min</button></div></article>
+    </section>
+    <section id="planner" class="view">
+      <div class="section-heading"><div><p class="eyebrow">PLAN WITH PURPOSE</p><h2>Exam planner</h2><p class="muted">Add exams and break the syllabus into manageable topics.</p></div></div>
+      <article class="panel"><h3>Add an exam</h3><form id="exam-form" class="form-grid"><label>Subject<input id="exam-subject" required maxlength="60" placeholder="e.g. Artificial Intelligence"></label><label>Exam date<input id="exam-date" required type="date"></label><label class="full">Topics (separate with commas)<input id="exam-topics" placeholder="e.g. Search algorithms, Minimax, A*"></label><button class="primary" type="submit">Add to planner</button></form></article>
+      <div id="exam-list" class="exam-list"></div>
+      <article class="panel"><div class="panel-head"><div><h3>Auto timetable</h3><p class="muted">Create a simple plan using the 1–4–7 revision rule.</p></div></div><form id="timetable-form" class="form-grid"><label>Available minutes per day<input id="available-minutes" type="number" min="15" max="600" value="120" required></label><label>Start date<input id="timetable-date" type="date" required></label><button class="primary" type="submit">Generate timetable</button></form><div id="timetable-output"></div></article>
+    </section>
+    <section id="practice" class="view">
+      <div class="section-heading"><div><p class="eyebrow">LEARN BY DOING</p><h2>Practice & readiness</h2><p class="muted">Quick self-checks help estimate how prepared you feel.</p></div></div>
+      <article class="panel"><h3>Topic check-in</h3><p class="muted">Choose a topic, rate your confidence, and update its mastery score.</p><form id="practice-form" class="form-grid"><label class="full">Topic<select id="practice-topic" required><option value="">Add an exam topic first</option></select></label><label>Confidence<select id="practice-score"><option value="25">Need more practice — 25%</option><option value="50">Getting there — 50%</option><option value="75">Mostly confident — 75%</option><option value="100">I can explain it — 100%</option></select></label><button class="primary" type="submit">Save assessment</button></form><div id="practice-result" aria-live="polite"></div></article>
+      <article class="panel"><h3>Topic mastery</h3><div id="mastery-list" class="stack"><p class="muted">Your topics will appear here.</p></div></article>
+    </section>
+    <section id="spaces" class="view">
+      <div class="section-heading"><div><p class="eyebrow">FIND YOUR FOCUS</p><h2>Study spaces</h2><p class="muted">Sample campus spaces with estimated availability. Not live sensor data.</p></div></div>
+      <div class="filter-row"><label class="search-label">Search spaces<input id="space-search" placeholder="Search by name or type"></label><label>Filter<select id="space-filter"><option value="all">All spaces</option><option value="quiet">Quiet</option><option value="group">Group study</option><option value="nearest">Nearest</option><option value="available">Available now</option><option value="least">Least crowded</option></select></label></div>
+      <div id="space-list" class="spaces-grid"></div>
+      <p class="note">Check-in is a demonstration only. Camera and location checks are not real identity verification or a real geofence. No seat is reserved with campus systems.</p>
+    </section>
+    <section id="progress" class="view">
+      <div class="section-heading"><div><p class="eyebrow">SMALL STEPS, BIG RESULTS</p><h2>Your progress</h2><p class="muted">Your learning data is stored locally in this browser.</p></div></div>
+      <div class="stats-grid"><article class="stat-card"><span class="card-symbol purple">◷</span><div><small>Total study time</small><strong id="progress-minutes">0 min</strong></div></article><article class="stat-card"><span class="card-symbol green">✓</span><div><small>Syllabus coverage</small><strong id="coverage">0%</strong></div></article><article class="stat-card"><span class="card-symbol orange">✦</span><div><small>Study streak</small><strong id="progress-streak">0 days</strong></div></article></div>
+      <article class="panel"><h3>Weekly study activity</h3><div id="weekly-chart" class="weekly-chart"></div></article>
+      <article class="panel"><div class="panel-head"><div><h3>Student profile</h3><p class="muted">Use a demo student ID to keep separate local profiles on this device.</p></div></div><form id="profile-form" class="form-grid"><label>Student ID<input id="student-id" maxlength="40" placeholder="e.g. STUDENT001" required></label><button class="primary" type="submit">Switch profile</button></form><p class="note">Demo only: profiles are stored in this browser's localStorage. This is not secure authentication.</p><button id="reset-data" class="danger-btn">Reset current profile data</button></article>
+    </section>
+    <footer><span>✦ StudySpot AI</span><span>Built for better study habits · Demo project</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="modal" class="modal-backdrop" hidden><div class="modal panel" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button id="modal-close" class="modal-close" aria-label="Close">×</button><p class="eyebrow">DEMO CHECK-IN</p><h2 id="modal-title">Reserve a study seat</h2><div id="checkin-steps"></div></div></div>
+  <script src="app.js"></script>
+</body>
+</html>
